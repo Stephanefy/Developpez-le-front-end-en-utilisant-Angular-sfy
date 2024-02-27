@@ -1,0 +1,58 @@
+@import '../../../styles.scss';
+@import '../../app.component.scss';
+
+h2 {
+    width: 200px;
+    text-align: center;
+    padding: .5rem .05rem;
+    color: white;
+    border-radius: 10px;
+    background-color: $primary-color;
+    margin: auto;
+}
+
+.tabs-container {
+    margin: auto;
+    width: 55%;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1px 4px 2px 1px;
+
+    div {
+        border: 2px solid $primary-color;
+        border-radius: 10px;
+        padding: 3px 4px 3px 4px;
+    }
+
+    @include respond-to(small) {
+        min-height: 50vh;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+ 
+}
+
+.numbers-container {
+    min-height: 30px;
+    padding-right: 5em;
+    padding-left: 5em;
+    text-align: center;
+
+    p{
+        padding: 0;
+        margin: .5em
+    }
+
+    .number {
+        font-weight: 700;
+    }
+
+
+    @include respond-to(small) {
+        width: 100%;
+        margin-top: 2rem;
+    }
+}

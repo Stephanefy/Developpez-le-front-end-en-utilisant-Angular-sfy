@@ -1,0 +1,23 @@
+<div *ngIf="errorMessage === ''">
+  <h2>{{ olympic.country }}</h2>
+  <div class="tabs-container">
+      <div class="numbers-container">
+        <p>Total number of entries</p>
+        <p class="number">{{ totalNumberOfEntries }}</p>
+      </div>
+      <div class="numbers-container">
+        <p>Total number of medals</p>
+        <p class="number">{{ totalNumberOfMedals }}</p>
+      </div>
+      <div class="numbers-container">
+        <p>Total number of Athletes</p>
+        <p class="number">{{ totalNumberOfAthletes }}</p>
+      </div>
+    </div>
+  <app-line errorMessage="errorMessage"></app-line>
+</div>
+<div 
+class="error-message-container"
+*ngIf="errorMessage !== ''">
+  <p class="error">{{ errorMessage }}</p>
+</div>

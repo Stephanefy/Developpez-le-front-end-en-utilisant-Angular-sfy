@@ -1,0 +1,11 @@
+.error-message-container {
+
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .error {
+        color: red;
+    }
+}

@@ -1,0 +1,19 @@
+<h2>Medals per Country</h2>
+<div class="tabs-container">
+  <div class="numbers-container">
+    <p>Number of Jos</p>
+    <p *ngIf="!isLoading" class="number">{{ numberOfJos }}</p>
+    <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+  </div>
+  <div class="numbers-container">
+    <p>Number of countries</p>
+    <p *ngIf="!isLoading" class="number">{{ countries }}</p>
+    <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+  </div>
+</div>
+<div *ngIf="!isLoading && errorMessage === ''" class="pie-container">
+  <app-pie></app-pie>
+</div>
+<div *ngIf="errorMessage !== ''" class="error-message-container">
+  <p class="error">{{ errorMessage }}</p>
+</div>

@@ -1,0 +1,44 @@
+@import '../../../styles.scss';
+
+.container {
+    display: flex;
+    justify-content: center;
+    max-width: 1140px;
+    margin: auto;
+
+    .chart-wrapper {
+        width: 65%;
+        
+            @include respond-to(small) {
+                width: 100%;
+            }
+    }
+
+
+ 
+
+
+
+
+}
+.btn-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+
+    .rounded-button {
+        background-color: $primary-color; /* Green background */
+        color: white; /* White text */
+        padding: 10px 20px; /* Top and Bottom padding 10px, Left and Right padding 20px */
+        border: none; /* No border */
+        cursor: pointer; /* Cursor changes to a pointer when hovered over */
+        border-radius: 10px; /* Rounded corners */
+        font-size: 16px; /* Text size */
+      }
+      
+      .rounded-button:hover {
+        background-color: #45a049; /* Darker shade of green on hover */
+      }
+      
+}

@@ -51,11 +51,21 @@ export type LabelPositions = {
  */
 
 export class PieComponent implements OnInit, OnDestroy {
+
   title = 'Olympic games countries medals';
   olympics$: Observable<IOlympic[]> = this.olympicService.olympics;
   public chart: any;
   public countries: IOlympic[] = [];
   public medalsCounts: number[] = [];
+  public selectedId: number = 0;
+
+  private pieSlicesBgColors: string[] =  [
+    '#945f65',
+    '#b8cae6',
+    '#89a1da',
+    '#793d52',
+    '#9680a1',
+  ]
   private subscription: Subscription = new Subscription();
 
   public pieChartLabels: string[][] = [];
@@ -109,9 +119,9 @@ export class PieComponent implements OnInit, OnDestroy {
 
     this.chart = new Chart('pie-chart', {
       type: 'pie', //this denotes tha type of chart
-      data: getDataConfig(this.pieChartLabels, this.medalsCounts),
+      data: getDataConfig(this.pieChartLabels, this.medalsCounts, this.pieSlicesBgColors),
       //@ts-ignore
-      options: getOptions(labelsPositions, countriesRef, routerRef),
+      options: getOptions(countriesRef, routerRef),
       plugins: [
         {
           id: 'pie-chart-lines',
@@ -163,34 +173,34 @@ export class PieComponent implements OnInit, OnDestroy {
                 );
                 
 
-                ctx.font = '14px Arial';
+                // ctx.font = '14px Arial';
 
                 // control text position
-                const textPosition = x >= halfWidth ? 'left' : 'right';
-                const textMargin = x >= halfWidth ? 5 : -5;
+                // const textPosition = x >= halfWidth ? 'left' : 'right';
+                // const textMargin = x >= halfWidth ? 5 : -5;
 
-                ctx.textAlign = textPosition;
-                ctx.textBaseline = 'middle';
-                ctx.fillStyle = 'black';
-                ctx.fillText(
-                  textLabel,
-                  xLine + textMargin,
-                  isFI ? fiMoveTo : isS ? sMoveTo : y
-                );
+                // ctx.textAlign = textPosition;
+                // ctx.textBaseline = 'middle';
+                // ctx.fillStyle = 'black';
+                // ctx.fillText(
+                //   textLabel,
+                //   xLine + textMargin,
+                //   isFI ? fiMoveTo : isS ? sMoveTo : y
+                // );
 
-                const labelPosition = {
-                  x: xLine + textMargin,
-                  y: isFI ? fiMoveTo : isS ? sMoveTo : y,
-                  label: textLabel,
-                  textWidth: textMetrics.width,
-                  textHeight:
-                    textMetrics.actualBoundingBoxAscent +
-                    textMetrics.actualBoundingBoxDescent,
-                };
+                // const labelPosition = {
+                //   x: xLine + textMargin,
+                //   y: isFI ? fiMoveTo : isS ? sMoveTo : y,
+                //   label: textLabel,
+                //   textWidth: textMetrics.width,
+                //   textHeight:
+                //     textMetrics.actualBoundingBoxAscent +
+                //     textMetrics.actualBoundingBoxDescent,
+                // };
 
-                if (labelsPositions.length < 5) {
-                  labelsPositions.push(labelPosition);
-                }
+                // if (labelsPositions.length < 5) {
+                //   labelsPositions.push(labelPosition);
+                // }
               });
             });
           },
@@ -202,5 +212,11 @@ export class PieComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
     this.chart.destroy();
+  }
+
+  onCountryClick(id: number, event: MouseEvent) {
+    const bgColorToPassDown = this.pieSlicesBgColors[id - 1].split('#')[1];
+      this.router.navigate(['/details', id, bgColorToPassDown]);
+    
   }
 }

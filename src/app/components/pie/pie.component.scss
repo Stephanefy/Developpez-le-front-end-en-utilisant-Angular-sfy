@@ -1,0 +1,101 @@
+@import '../../../styles.scss';
+
+
+
+.pie-chart-container {
+    position: relative;
+
+    ul {
+        position: relative;
+    }
+
+    li {
+        list-style: none;
+
+
+        button {
+            background-color: transparent;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 10;
+
+            @include respond-to(small) {
+                font-size: 10px;
+            }
+
+        }
+    }
+
+    .Germany {
+        position: absolute;
+        bottom: 95px;
+        left: -10px;
+
+        &:hover {
+            color: #793d52;
+        }
+
+        @include respond-to(small) {
+            left: 0px;
+            bottom: 87px;
+        }
+    }
+
+    .France {
+        position: absolute;
+        bottom: 162px;
+        left: 26px;
+
+        &:hover {
+            color: #9680a1;
+        }
+
+        @include respond-to(small) {
+            left: 30px;
+            bottom: 149px;
+        }
+
+
+    }
+    .Italy {
+        position: absolute;
+        right: 46px;
+        bottom: 163px;
+        &:hover {
+            color: #945f65;
+        }
+        @include respond-to(small) {
+            right: 45px;
+            bottom: 150px;
+        }
+    }
+
+    .Spain {
+        position: absolute;
+        right: 16px;
+        bottom: 123px;
+        &:hover {
+            color: #b8cae6;
+        }
+        @include respond-to(small) {
+            bottom: 113px;
+            right: 20px;
+        }
+    }
+    .US {
+        position: absolute;
+        right: -8px;
+        bottom: 50px;
+        &:hover {
+            color: #89a1da;
+        }
+
+        @include respond-to(small) {
+            bottom: 46px;
+            right: 7px;
+        }
+    }
+
+    
+}

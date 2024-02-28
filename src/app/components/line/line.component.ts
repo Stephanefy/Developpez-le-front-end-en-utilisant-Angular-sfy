@@ -30,15 +30,13 @@ export class LineComponent implements OnInit, OnChanges, AfterViewInit {
     private route: ActivatedRoute
     ) { }
   @Input() errorMessage!: string;
+  @Input() currentBgColor!: string;
 
   public olympic!: IOlympic;
 
   ngOnInit(): void {
 
-
-
     const id = +this.route.snapshot.params["id"];
-    //@ts-ignore
     this.olympicService.getOlympicById(id).subscribe(value => { 
       if(value) { 
         this.olympic = value
@@ -74,7 +72,8 @@ export class LineComponent implements OnInit, OnChanges, AfterViewInit {
           {
             label: "Medals",
             data: medalsCount,
-            backgroundColor: 'blue',
+            backgroundColor: this.currentBgColor,
+            borderColor: this.currentBgColor,
             tension: 0
           },
         ]

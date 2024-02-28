@@ -1,8 +1,14 @@
+@import '../../../styles.scss';
+
 main {
-    width: 800px;
+    padding-top: 10rem;
     margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+    @include respond-to(small) {
+        padding-top: 5rem;
+    }
 }

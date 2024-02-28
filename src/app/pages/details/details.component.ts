@@ -18,6 +18,7 @@ export class DetailsComponent implements OnInit {
   public totalNumberOfAthletes: number = 0;
   public totalNumberOfMedals: number = 0;
   public errorMessage: string = '';
+  public currentBgColor: string = '#';
 
   constructor(
     private olympicService: OlympicService,
@@ -25,9 +26,10 @@ export class DetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    
     const id = +this.route.snapshot.params['id'];
-    
+    this.currentBgColor =
+      this.currentBgColor + this.route.snapshot.params['bgColor'];
+
     if (isNaN(id)) {
       this.errorMessage = 'Invalid id';
       return;
@@ -36,25 +38,25 @@ export class DetailsComponent implements OnInit {
     // TODO: find a more 'elegant' way to handle unknown id or badly formatted id
     this.olympicService.getOlympicById(id).subscribe(
       (value) => {
-          if (value) {
-            this.olympic = value;
-  
-            this.totalNumberOfMedals = value.participations.reduce(
-              (acc: number, participation: IParticipation) =>
-                acc + participation.medalsCount,
-              0
-            );
-            this.totalNumberOfEntries = value.participations.length;
-            this.totalNumberOfAthletes = value.participations.reduce(
-              (acc: number, participation: IParticipation) =>
-                acc + participation.athleteCount,
-              0
-            );
-          } 
-        },
-        (error) => {
-          this.errorMessage = error;
+        if (value) {
+          this.olympic = value;
+
+          this.totalNumberOfMedals = value.participations.reduce(
+            (acc: number, participation: IParticipation) =>
+              acc + participation.medalsCount,
+            0
+          );
+          this.totalNumberOfEntries = value.participations.length;
+          this.totalNumberOfAthletes = value.participations.reduce(
+            (acc: number, participation: IParticipation) =>
+              acc + participation.athleteCount,
+            0
+          );
         }
+      },
+      (error) => {
+        this.errorMessage = error;
+      }
     );
   }
 }

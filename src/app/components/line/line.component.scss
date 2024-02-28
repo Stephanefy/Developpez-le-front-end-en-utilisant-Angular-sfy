@@ -1,4 +1,4 @@
-@import '../../../styles.scss';
+@import "../../../styles.scss";
 
 .container {
     display: flex;
@@ -7,24 +7,19 @@
     margin: auto;
 
     .chart-wrapper {
+        margin-top: 2rem;
         width: 65%;
-        
-            @include respond-to(small) {
-                width: 100%;
-            }
+
+        @include respond-to(small) {
+            width: 100%;
+        }
     }
-
-
- 
-
-
-
-
 }
 .btn-wrapper {
     width: 100%;
     display: flex;
     justify-content: center;
+    padding-top: 2rem;
     margin: auto;
 
     .rounded-button {
@@ -35,10 +30,9 @@
         cursor: pointer; /* Cursor changes to a pointer when hovered over */
         border-radius: 10px; /* Rounded corners */
         font-size: 16px; /* Text size */
-      }
-      
-      .rounded-button:hover {
+    }
+
+    .rounded-button:hover {
         background-color: #45a049; /* Darker shade of green on hover */
-      }
-      
+    }
 }

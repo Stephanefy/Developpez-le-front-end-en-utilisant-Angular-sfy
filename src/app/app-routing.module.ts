@@ -10,7 +10,7 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'details/:id',
+    path: 'details/:id/:bgColor',
     component: DetailsComponent,
   },
   {

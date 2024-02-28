@@ -1,13 +1,14 @@
 @import '../../../styles.scss';
 
 h2 {
-    width: 300px;
+    width: max-content;
     text-align: center;
     padding: .5rem;
     color: white;
     border-radius: 10px;
     background-color: $primary-color;
     margin: auto;
+
 }
 
 .tabs-container {
@@ -21,19 +22,21 @@ h2 {
     div {
         border: 2px solid $primary-color;
         border-radius: 10px;
-        padding: 3px 4px 3px 4px;
+        padding: 2px;
     }
 
     @include respond-to(small) {
+        width: 100%;
         flex-direction: column;
     }
 }
 
 .numbers-container {
     min-height: 30px;
-    padding-right: 5em;
-    padding-left: 5em;
+    padding-right: 2em;
+    padding-left: 2em;
     text-align: center;
+    width: 170px;
 
     p{
         padding: 0;

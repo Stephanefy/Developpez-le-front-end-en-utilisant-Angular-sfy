@@ -2,9 +2,9 @@
 @import '../../app.component.scss';
 
 h2 {
-    width: 200px;
+    width: max-content;
     text-align: center;
-    padding: .5rem .05rem;
+    padding: .5rem;
     color: white;
     border-radius: 10px;
     background-color: $primary-color;

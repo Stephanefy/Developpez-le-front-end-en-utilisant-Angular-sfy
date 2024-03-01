@@ -10,6 +10,7 @@ import { OlympicService } from './core/services/olympic.service';
 export class AppComponent implements OnInit, OnDestroy {
 
   private subscription = new Subscription();
+  public title = 'olympic-games-starter';
 
   constructor(private olympicService: OlympicService) {}
 

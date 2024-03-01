@@ -128,7 +128,7 @@ export class PieComponent implements OnInit, OnDestroy {
           beforeDatasetDraw: (chart, args, options) => {
             const {
               ctx,
-              chartArea: { top, right, bottom, left, width, height },
+              chartArea: { width, height },
             } = chart;
 
             chart.data.datasets.forEach((dataset, i) => {

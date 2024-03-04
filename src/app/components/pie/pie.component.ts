@@ -1,30 +1,23 @@
 import {
   Component,
-  Input,
   OnInit,
-  OnChanges,
-  ViewChild,
-  AfterViewInit,
-  SimpleChanges,
   OnDestroy,
+  HostListener,
 } from '@angular/core';
 import { Observable, Subscription, of } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import Chart, { ChartEvent } from 'chart.js/auto';
-import { getRelativePosition } from 'chart.js/helpers';
+import Chart from 'chart.js/auto';
 
 import { IOlympic } from 'src/app/core/models/Olympic';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
-import annotationPlugin from 'chartjs-plugin-annotation';
 import { getDataConfig, getOptions } from './pie-chart.config';
 
 import { Context } from 'chartjs-plugin-datalabels';
 import { Router } from '@angular/router';
 
 // extend Chart.js context
-interface HoveredContext extends Context {
-  hovered?: boolean;
-}
+// interface HoveredContext extends Context {
+//   hovered?: boolean;
+// }
 
 export type LabelPositions = {
   x: number;
@@ -53,11 +46,18 @@ export type LabelPositions = {
 export class PieComponent implements OnInit, OnDestroy {
 
   title = 'Olympic games countries medals';
-  olympics$: Observable<IOlympic[]> = this.olympicService.olympics;
+  private olympics$: Observable<IOlympic[]> = this.olympicService.olympics;
+
+  // reference of the pie chart
   public chart: any;
+
+  public screenWidth!: number;
+  public screenHeight!: number;
+
   public countries: IOlympic[] = [];
   public medalsCounts: number[] = [];
   public selectedId: number = 0;
+
 
   private pieSlicesBgColors: string[] =  [
     '#945f65',
@@ -79,6 +79,9 @@ export class PieComponent implements OnInit, OnDestroy {
     // console.log(this.chart)
     // this.pieChartDatasets[0].data = this.medalsCounts
     // this.olympics$ = this.olympicService.getOlympics();
+
+    this.screenWidth = window.innerWidth;
+    this.screenHeight = window.innerHeight;
 
     this.subscription = this.olympics$.subscribe((countries) => {
       if (countries) {
@@ -114,6 +117,7 @@ export class PieComponent implements OnInit, OnDestroy {
     // so that it can be used inside the pie chart events for redirecting to country details
     const countriesRef = this.countries;
     const routerRef = this.router;
+    const screenWidthRef = this.screenWidth;
 
     const labelsPositions: LabelPositions[] = [];
 
@@ -144,9 +148,9 @@ export class PieComponent implements OnInit, OnDestroy {
                 const halfHeight = height / 2;
                 const halfWidth = width / 2;
 
-                
+                const linePadding = screenWidthRef >= 360 ? 90 : 50;
 
-                const xLine = x >= halfWidth ? x + 90 : x - 90;
+                const xLine = x >= halfWidth ? x + linePadding : x - linePadding;
                 // const yLine = y >= halfHeight ? y - 15 : y + 15;
 
                 const isFI = [0, 4].includes(index) ? true : false;
@@ -218,5 +222,11 @@ export class PieComponent implements OnInit, OnDestroy {
     const bgColorToPassDown = this.pieSlicesBgColors[id - 1].split('#')[1];
       this.router.navigate(['/details', id, bgColorToPassDown]);
     
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.screenWidth = window.innerWidth;
+    this.screenHeight = window.innerHeight;
   }
 }

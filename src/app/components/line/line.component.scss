@@ -10,6 +10,10 @@
         margin-top: 2rem;
         width: 65%;
 
+        @include respond-to(xsmall) {
+            width: 100%;
+        }
+
         @include respond-to(small) {
             width: 100%;
         }

@@ -13,7 +13,7 @@ h2 {
 
 .tabs-container {
     margin: auto;
-    width: 55%;
+    width: max-content;
     margin-top: 2rem;
     display: flex;
     justify-content: space-between;
@@ -21,9 +21,15 @@ h2 {
     padding: 1px 4px 2px 1px;
 
     div {
+        margin: 0 2rem;
         border: 2px solid $primary-color;
         border-radius: 10px;
         padding: 3px 4px 3px 4px;
+    }
+    @include respond-to(xsmall) {
+        min-height: 50vh;
+        flex-direction: column;
+        justify-content: space-around;
     }
 
     @include respond-to(small) {
@@ -48,6 +54,11 @@ h2 {
 
     .number {
         font-weight: 700;
+    }
+
+    @include respond-to(xsmall) {
+        width: 100%;
+        margin-top: 2rem;
     }
 
 

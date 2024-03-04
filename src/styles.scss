@@ -3,11 +3,15 @@ $primary-color: #05828e;
 
 // Mixin for media queries
 @mixin respond-to($breakpoint) {
-    @if $breakpoint == small {
-      @media (max-width: 640px) { @content; }
+    
+    @if $breakpoint == xsmall {
+      @media (max-width: 359px) { @content; }
+    }
+    @else if $breakpoint == small {
+      @media (min-width: 360px) and (max-width: 640px) { @content; }
     }
     @else if $breakpoint == medium {
-      @media (max-width: 768px) { @content; }
+      @media (min-width: 768px) { @content; }
     }
     @else if $breakpoint == large {
       @media (min-width: 1024px) { @content; }
@@ -35,4 +39,38 @@ body {
 img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
+}
+
+
+.error-message {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffdddd;
+  border-left: 6px solid #f44336;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.error-message h2 {
+  color: #d8000c;
+  margin-top: 0;
+}
+
+.error-message p {
+  color: #666;
+}
+
+.error-message button {
+  background-color: #d8000c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.error-message button:hover {
+  background-color: #b8000b;
 }

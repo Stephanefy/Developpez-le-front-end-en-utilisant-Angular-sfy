@@ -1,4 +1,4 @@
-<div *ngIf="errorMessage === ''">
+<div *ngIf="errorMessage === ''; else error">
   <h2>{{ olympic.country }}</h2>
   <div class="tabs-container">
       <div class="numbers-container">
@@ -16,8 +16,9 @@
     </div>
   <app-line errorMessage="errorMessage" [currentBgColor]="currentBgColor"></app-line>
 </div>
-<div 
-class="error-message-container"
-*ngIf="errorMessage !== ''">
-  <p class="error">{{ errorMessage }}</p>
-</div>
+
+<ng-template #error>
+  <div class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+</ng-template>

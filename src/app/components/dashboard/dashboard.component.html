@@ -11,9 +11,12 @@
     <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
   </div>
 </div>
-<div *ngIf="!isLoading && errorMessage === ''" class="pie-container">
+<div *ngIf="errorMessage === ''; else error" class="pie-container">
   <app-pie></app-pie>
 </div>
-<div *ngIf="errorMessage !== ''" class="error-message-container">
-  <p class="error">{{ errorMessage }}</p>
-</div>
+<ng-template #error>
+  <div class="error-message">
+    <p>Something went wrong. Please try again later.</p>
+  </div>
+</ng-template>
+

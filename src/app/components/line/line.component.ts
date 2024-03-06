@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { IOlympic } from 'src/app/core/models/Olympic';
 import { getDataConfig, getOptions } from './line-chart.config';
-import Chart from 'chart.js/auto';
+import { Chart, ChartType, ChartConfiguration} from 'chart.js';
 
 @Component({
   selector: 'app-line',
@@ -26,8 +26,8 @@ import Chart from 'chart.js/auto';
  * @implements {OnChanges}
  * @implements {AfterViewInit}
  */
-export class LineComponent implements OnInit, OnChanges, AfterViewInit {
-  public chart: any;
+export class LineComponent implements OnInit, AfterViewInit {
+  public chart!: Chart;
 
   constructor(
     private location: Location,
@@ -53,7 +53,6 @@ export class LineComponent implements OnInit, OnChanges, AfterViewInit {
     });
   }
 
-  ngOnChanges(changes: any) {}
 
   ngAfterViewInit(): void {}
 
@@ -62,14 +61,16 @@ export class LineComponent implements OnInit, OnChanges, AfterViewInit {
       (participation) => participation.year
     );
     const medalsCount = olympic.participations.map((participation) =>
-      participation.medalsCount.toString()
+      participation.medalsCount
     );
 
-    this.chart = new Chart('line-chart', {
-      type: 'line',
+    const chartConfig: ChartConfiguration = {
+      type: 'line' as ChartType,
       data: getDataConfig(dataLabels, medalsCount, this.currentBgColor),
       options: getOptions(),
-    });
+    }
+
+    this.chart = new Chart('line-chart', chartConfig);
   }
 
   onGoBack() {

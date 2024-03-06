@@ -1,9 +1,7 @@
-import { ChartEvent } from 'chart.js';
+import { ChartEvent, ActiveElement } from 'chart.js';
 import { LabelPositions } from './pie.component';
 import { IOlympic } from 'src/app/core/models/Olympic';
 import { Router } from '@angular/router';
-import { getRelativePosition } from 'chart.js/helpers';
-import { Context } from 'chartjs-plugin-datalabels';
 
 export type PieChartLabels = string[][];
 export type MedalsCount = number[];
@@ -38,65 +36,41 @@ export const getOptions = (
     return {
       spacing: 0,
       interaction: {
-        mode: 'nearest',
+        mode: 'nearest' as 'nearest',
       },
       responsive: true,
       aspectRatio: 2,
       layout: {
         padding: 10,
       },
-      onHover: (event: ChartEvent, chartElement: any, chart: any) => {
+      onHover: (event: ChartEvent, chartElement: ActiveElement[]) => {
 
-        //@ts-ignore
-        event.native.target.style.cursor =
-          chartElement.length === 1 ? 'pointer' : 'default';
+        if (event.native && event.native.target instanceof HTMLElement) {
+          event.native.target.style.cursor =
+            chartElement.length === 1 ? 'pointer' : 'default';
+        }
       },
-      // onClick: (event: ChartEvent, element: any, chart: any) => {
-
-      //   const clickedDetails = chart.getElementsAtEventForMode(
-      //     event,
-      //     'nearest',
-      //     { intersect: true },
-      //     true
-      //   );
-
-      //   if (clickedDetails.length) {
-      //     const pieSlice = clickedDetails[0];
-      //     routerRef.navigate(['/details', countriesRef[pieSlice.index].id]);
-      //   }
-      // },
       plugins: {
         legend: {
           display: false,
         },
         tooltip: {
           padding: 10,
-          yAlign: 'bottom',
+          yAlign: 'bottom' as const,
           displayColors: false,
           backgroundColor: '#05828e',
-          titleAlign: 'center',
+          titleAlign: 'center' as const,
           usePointStyle: true,
-          callbacks: {
-            labelPointStyle: function (context: Context) {
-              return {
-                pointStyle: image,
-              };
-            },
-          },
+          // callbacks: {
+          //   labelPointStyle: function (context: Context) {
+          //     return {
+          //       pointStyle: image,
+          //     };
+          //   },
+          // },
         },
       },
     };
   }
 };
 
-function getCanvasCoords(mouseEvent: { clientX: number; clientY: number; }, canvasElem: { getBoundingClientRect: () => any; width: number; height: number; }) {
-  const canvasBoundingRect = canvasElem.getBoundingClientRect();
-  const scale = {
-      x: canvasElem.width / canvasBoundingRect.width,
-      y: canvasElem.height / canvasBoundingRect.height
-  };
-  return {
-      x: (mouseEvent.clientX - canvasBoundingRect.left) * scale.x,
-      y: (mouseEvent.clientY - canvasBoundingRect.top) * scale.y
-  };
-}

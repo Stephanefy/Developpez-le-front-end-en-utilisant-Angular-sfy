@@ -39,8 +39,6 @@ export class OlympicService {
         return olympics;
       }),
       catchError((error) => {
-        // TODO: improve error handling
-        // can be useful to end loading state and let the user know something went wrong
         this.isLoading$.next(false);
         this.olympics$.next([]);
         this.olympics$.error({

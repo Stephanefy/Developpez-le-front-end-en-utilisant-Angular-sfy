@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 
+
+/**
+ * Service for local storage
+ * to cache olympics data so that once first initialized on home page it won't need to be fetched again
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -8,7 +13,7 @@ export class StorageService {
   constructor() { }
 
   // Set an item in local storage
-  setItem(key: string, value: any): void {
+  setItem<T>(key: string, value: T): void {
     try {
       const stringValue = JSON.stringify(value);
       localStorage.setItem(key, stringValue);

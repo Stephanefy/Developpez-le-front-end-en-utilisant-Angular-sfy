@@ -7,6 +7,7 @@ import {
 import { Observable, Subscription, of } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import Chart from 'chart.js/auto';
+import {Chart as ChartInstanceType, ChartType, ChartConfiguration} from 'chart.js'
 
 import { IOlympic } from 'src/app/core/models/Olympic';
 import { getDataConfig, getOptions } from './pie-chart.config';
@@ -49,7 +50,7 @@ export class PieComponent implements OnInit, OnDestroy {
   private olympics$: Observable<IOlympic[]> = this.olympicService.olympics;
 
   // reference of the pie chart
-  public chart: any;
+  public chart!: ChartInstanceType;
 
   public screenWidth!: number;
   public screenHeight!: number;
@@ -79,6 +80,7 @@ export class PieComponent implements OnInit, OnDestroy {
     // console.log(this.chart)
     // this.pieChartDatasets[0].data = this.medalsCounts
     // this.olympics$ = this.olympicService.getOlympics();
+
 
     this.screenWidth = window.innerWidth;
     this.screenHeight = window.innerHeight;
@@ -119,12 +121,9 @@ export class PieComponent implements OnInit, OnDestroy {
     const routerRef = this.router;
     const screenWidthRef = this.screenWidth;
 
-    const labelsPositions: LabelPositions[] = [];
-
-    this.chart = new Chart('pie-chart', {
-      type: 'pie', //this denotes tha type of chart
+    const chartConfig: ChartConfiguration = {
+      type: 'pie' as ChartType, //this denotes tha type of chart
       data: getDataConfig(this.pieChartLabels, this.medalsCounts, this.pieSlicesBgColors),
-      //@ts-ignore
       options: getOptions(countriesRef, routerRef),
       plugins: [
         {
@@ -144,7 +143,7 @@ export class PieComponent implements OnInit, OnDestroy {
                 // ctx.fillRect(x, y, 30, 30);
                 // ctx.restore();
 
-                //draw line
+                //draw lines to the buttons (country name)
                 const halfHeight = height / 2;
                 const halfWidth = width / 2;
 
@@ -157,7 +156,7 @@ export class PieComponent implements OnInit, OnDestroy {
                 const isS = [1].includes(index) ? true : false;
                 const fiMoveTo = y - 30;
                 const sMoveTo = y - 10;
-
+            
                 
 
                 //
@@ -165,52 +164,23 @@ export class PieComponent implements OnInit, OnDestroy {
                 ctx.beginPath();
                 ctx.moveTo(x, isFI ? fiMoveTo : isS ? sMoveTo : y);
                 ctx.lineTo(xLine, isFI ? fiMoveTo : isS ? sMoveTo : y);
-                //@ts-ignore
-                ctx.strokeStyle = dataset.backgroundColor[index];
+                ctx.strokeStyle = (dataset.backgroundColor as string[])[index]
                 ctx.stroke();
 
                 // text
-                //@ts-ignore
-                const textLabel: string = chart.data.labels[index][0] ?? '';
+                const labels = chart.data.labels as string[][];
+                const textLabel = labels[index][0];
                 const textMetrics = ctx.measureText(
                   chart.data.labels![index] as string
                 );
-                
-
-                // ctx.font = '14px Arial';
-
-                // control text position
-                // const textPosition = x >= halfWidth ? 'left' : 'right';
-                // const textMargin = x >= halfWidth ? 5 : -5;
-
-                // ctx.textAlign = textPosition;
-                // ctx.textBaseline = 'middle';
-                // ctx.fillStyle = 'black';
-                // ctx.fillText(
-                //   textLabel,
-                //   xLine + textMargin,
-                //   isFI ? fiMoveTo : isS ? sMoveTo : y
-                // );
-
-                // const labelPosition = {
-                //   x: xLine + textMargin,
-                //   y: isFI ? fiMoveTo : isS ? sMoveTo : y,
-                //   label: textLabel,
-                //   textWidth: textMetrics.width,
-                //   textHeight:
-                //     textMetrics.actualBoundingBoxAscent +
-                //     textMetrics.actualBoundingBoxDescent,
-                // };
-
-                // if (labelsPositions.length < 5) {
-                //   labelsPositions.push(labelPosition);
-                // }
               });
             });
           },
         },
       ],
-    });
+    }
+    
+    this.chart = new Chart('pie-chart', chartConfig );
   }
 
   ngOnDestroy(): void {

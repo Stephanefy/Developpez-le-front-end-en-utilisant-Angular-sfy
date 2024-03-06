@@ -1,3 +1,8 @@
+/**
+ * Function to get the options for the pie chart
+ *
+ * @return {object} options object
+ */
 export const getOptions = () => {
   return {
     responsive: true,
@@ -10,10 +15,17 @@ export const getOptions = () => {
     },
   };
 };
-
+/**
+ * Retrieves the data configuration for the pie chart.
+ *
+ * @param {number[]} dataLabels - Array of data labels
+ * @param {string[]} medalsCount - Array of medal counts
+ * @param {string} currentBgColor - Current background color
+ * @return {object} Data configuration for the chart
+ */
 export const getDataConfig = (
   dataLabels: number[],
-  medalsCount: string[],
+  medalsCount: number[],
   currentBgColor: string
 ) => {
   return {

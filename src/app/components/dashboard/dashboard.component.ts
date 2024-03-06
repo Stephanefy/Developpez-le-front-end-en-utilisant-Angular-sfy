@@ -23,7 +23,7 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
  * @implements {OnChanges}
  * 
  */
-export class DashboardComponent implements OnInit, OnDestroy, OnChanges {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   olympics$: Observable<IOlympic[]> = this.olympicService.olympics;
 
@@ -58,9 +58,7 @@ export class DashboardComponent implements OnInit, OnDestroy, OnChanges {
     
   }
   
-  ngOnChanges(changes: any) {
-    console.log("changes",changes)
-  }
+
  
 
   ngOnDestroy(): void {

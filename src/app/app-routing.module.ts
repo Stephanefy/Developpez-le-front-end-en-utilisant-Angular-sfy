@@ -10,8 +10,9 @@ export const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'details/:id/:bgColor',
+    path: 'details/:id',
     component: DetailsComponent,
+
   },
   {
     path: '**', // wildcard

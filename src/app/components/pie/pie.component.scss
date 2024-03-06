@@ -1,18 +1,17 @@
-@import '../../../styles.scss';
-
-
+@import "../../../styles.scss";
 
 .pie-chart-container {
     position: relative;
 
-
     canvas {
-        width: 400px;
-        height: 400px;
+        width: 300px;
+        height: 300px;
 
-        @include respond-to(xsmall) {
-            width: 300px;
-            height: 300px;
+        @include respond-to(small);
+        @include respond-to(medium);
+        @include respond-to(large) {
+            width: 400px;
+            height: 400px;
         }
     }
 
@@ -23,18 +22,16 @@
     li {
         list-style: none;
 
-
         .country-btn {
             background-color: transparent;
             border: none;
-            font-size: 14px;
+            font-size: 10px;
             cursor: pointer;
             z-index: 10;
 
-            @include respond-to(small) {
-                font-size: 10px;
+            @include respond-to(medium) {
+                font-size: 14px;
             }
-
         }
     }
 
@@ -74,8 +71,6 @@
             left: 30px;
             bottom: 165px;
         }
-
-
     }
     .Italy {
         position: absolute;
@@ -123,11 +118,10 @@
             bottom: 35px;
             right: -10px;
         }
-    
 
         @include respond-to(small) {
             bottom: 50px;
             right: 7px;
         }
-    }    
+    }
 }

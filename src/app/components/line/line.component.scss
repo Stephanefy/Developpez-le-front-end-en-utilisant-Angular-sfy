@@ -7,15 +7,12 @@
     margin: auto;
 
     .chart-wrapper {
-        margin-top: 2rem;
-        width: 65%;
-
-        @include respond-to(xsmall) {
-            width: 100%;
-        }
-
-        @include respond-to(small) {
-            width: 100%;
+        width: 100%;
+   
+        @include respond-to(medium) {
+            margin-top: 2rem;
+            width: 65%;
+    
         }
     }
 }
@@ -25,6 +22,7 @@
     justify-content: center;
     padding-top: 2rem;
     margin: auto;
+    
 
     .rounded-button {
         background-color: $primary-color; /* Green background */
@@ -34,9 +32,12 @@
         cursor: pointer; /* Cursor changes to a pointer when hovered over */
         border-radius: 10px; /* Rounded corners */
         font-size: 16px; /* Text size */
+        transition: background-color 0.3s ease;
+
     }
 
     .rounded-button:hover {
-        background-color: #45a049; /* Darker shade of green on hover */
+        background-color: #ddd;
+        color: #000;
     }
 }

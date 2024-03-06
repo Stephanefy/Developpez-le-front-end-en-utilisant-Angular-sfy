@@ -13,6 +13,7 @@ import { IOlympic } from 'src/app/core/models/Olympic';
 import { getDataConfig, getOptions } from './pie-chart.config';
 
 import { Router } from '@angular/router';
+import { ChartColorService } from 'src/app/core/services/chart-color.service';
 
 
 @Component({
@@ -60,7 +61,11 @@ export class PieComponent implements OnInit, OnDestroy {
   public pieChartLegend = false;
   public pieChartPlugins = [];
 
-  constructor(private olympicService: OlympicService, private router: Router) {}
+  constructor(
+    private olympicService: OlympicService, 
+    private router: Router,
+    private colorService: ChartColorService
+    ) {}
 
   ngOnInit(): void {
     // console.log(this.chart)
@@ -123,12 +128,7 @@ export class PieComponent implements OnInit, OnDestroy {
             chart.data.datasets.forEach((dataset, i) => {
               chart.getDatasetMeta(i).data.forEach((datapoint, index) => {
                 const { x, y } = datapoint.tooltipPosition(true);
-                
-                // ctx.fillStyle = 'black';
-                // ctx.fill();
-                // ctx.fillRect(x, y, 30, 30);
-                // ctx.restore();
-
+          
                 //draw lines to the buttons (country name)
                 const halfHeight = height / 2;
                 const halfWidth = width / 2;
@@ -136,7 +136,6 @@ export class PieComponent implements OnInit, OnDestroy {
                 const linePadding = screenWidthRef >= 360 ? 90 : 50;
 
                 const xLine = x >= halfWidth ? x + linePadding : x - linePadding;
-                // const yLine = y >= halfHeight ? y - 15 : y + 15;
 
                 const isFI = [0, 4].includes(index) ? true : false;
                 const isS = [1].includes(index) ? true : false;
@@ -144,8 +143,6 @@ export class PieComponent implements OnInit, OnDestroy {
                 const sMoveTo = y - 10;
             
                 
-
-                //
                 ctx.lineWidth = 2;
                 ctx.beginPath();
                 ctx.moveTo(x, isFI ? fiMoveTo : isS ? sMoveTo : y);
@@ -175,8 +172,9 @@ export class PieComponent implements OnInit, OnDestroy {
   }
 
   onCountryClick(id: number, event: MouseEvent) {
-    const bgColorToPassDown = this.pieSlicesBgColors[id - 1].split('#')[1];
-      this.router.navigate(['/details', id, bgColorToPassDown]);
+    const bgColorToPassDown = this.pieSlicesBgColors[id - 1];
+    this.colorService.updateData(bgColorToPassDown);
+    this.router.navigate(['/details', id]);
     
   }
 

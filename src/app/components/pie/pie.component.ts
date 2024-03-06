@@ -12,21 +12,7 @@ import {Chart as ChartInstanceType, ChartType, ChartConfiguration} from 'chart.j
 import { IOlympic } from 'src/app/core/models/Olympic';
 import { getDataConfig, getOptions } from './pie-chart.config';
 
-import { Context } from 'chartjs-plugin-datalabels';
 import { Router } from '@angular/router';
-
-// extend Chart.js context
-// interface HoveredContext extends Context {
-//   hovered?: boolean;
-// }
-
-export type LabelPositions = {
-  x: number;
-  y: number;
-  label: string,
-  textWidth: number,
-  textHeight: number
-};
 
 
 @Component({

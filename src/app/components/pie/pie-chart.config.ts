@@ -1,5 +1,4 @@
 import { ChartEvent, ActiveElement } from 'chart.js';
-import { LabelPositions } from './pie.component';
 import { IOlympic } from 'src/app/core/models/Olympic';
 import { Router } from '@angular/router';
 

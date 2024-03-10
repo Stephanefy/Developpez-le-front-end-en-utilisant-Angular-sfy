@@ -133,7 +133,7 @@ export class PieComponent implements OnInit, OnDestroy {
                 const halfHeight = height / 2;
                 const halfWidth = width / 2;
 
-                const linePadding = screenWidthRef >= 360 ? 90 : 50;
+                const linePadding = screenWidthRef > 420 ? 92 : 55;
 
                 const xLine = x >= halfWidth ? x + linePadding : x - linePadding;
 

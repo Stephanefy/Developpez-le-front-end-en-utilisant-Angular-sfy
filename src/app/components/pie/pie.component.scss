@@ -25,68 +25,81 @@
         .country-btn {
             background-color: transparent;
             border: none;
-            font-size: 10px;
+            font-size: 1rem;
             cursor: pointer;
             z-index: 10;
 
-            @include respond-to(medium) {
-                font-size: 14px;
+            @include respond-to(xsmall) {
+               font-size: 0.8rem;
             }
+         
         }
     }
 
     .Germany {
         position: absolute;
-        bottom: 95px;
-        left: -10px;
+        bottom: 94px;
+        left: -12px;
 
         &:hover {
             color: #793d52;
         }
         @include respond-to(xsmall) {
-            bottom: 70px;
+            bottom: 71px;
             left: -5px;
         }
 
         @include respond-to(small) {
-            left: 0px;
-            bottom: 98px;
+            left: -18px;
+            bottom: 68px;
+        }
+        @include respond-to(medium) {
+            bottom:  68px;
+            left: -50px;
         }
     }
 
     .France {
         position: absolute;
-        bottom: 162px;
+        bottom: 161px;
         left: 26px;
 
         &:hover {
             color: #9680a1;
         }
         @include respond-to(xsmall) {
-            bottom: 125px;
+            bottom: 128px;
             left: 25px;
         }
 
         @include respond-to(small) {
-            left: 30px;
-            bottom: 165px;
+            left: 15px;
+            bottom: 125px;
+        }
+        @include respond-to(medium) {
+            bottom:  126px;
+            left: -18px;
         }
     }
     .Italy {
         position: absolute;
         right: 46px;
-        bottom: 163px;
+        bottom: 161px;
         &:hover {
             color: #945f65;
         }
         @include respond-to(xsmall) {
-            bottom: 125px;
+            bottom: 128px;
             right: 45px;
         }
 
         @include respond-to(small) {
-            right: 45px;
-            bottom: 165px;
+            right: 40px;
+            bottom: 125px;
+        }
+        @include respond-to(medium) {
+            bottom:  126px;
+            right: 5px;
         }
     }
 
@@ -98,30 +111,39 @@
             color: #b8cae6;
         }
         @include respond-to(xsmall) {
-            bottom: 93px;
+            bottom: 95px;
             right: 20px;
         }
         @include respond-to(small) {
-            bottom: 125px;
-            right: 20px;
+            bottom: 90px;
+            right: 10px;
+        }
+        @include respond-to(medium) {
+            bottom: 93px;
+            right: -25px;
         }
     }
     .US {
         position: absolute;
-        right: -8px;
-        bottom: 50px;
+        right: -17px;
+        bottom: 48px;
         &:hover {
             color: #89a1da;
         }
 
         @include respond-to(xsmall) {
-            bottom: 35px;
-            right: -10px;
+            bottom: 37px;
+            right: -5px;
         }
 
         @include respond-to(small) {
-            bottom: 50px;
-            right: 7px;
+            bottom: 33px;
+            right: -25px;
+        }
+
+        @include respond-to(medium) {
+            bottom: 35px;
+            right: -61px;
         }
     }
 }

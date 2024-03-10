@@ -7,7 +7,7 @@
     margin: auto;
 
     .chart-wrapper {
-        width: 100%;
+        width: 80%;
    
         @include respond-to(medium) {
             margin-top: 2rem;

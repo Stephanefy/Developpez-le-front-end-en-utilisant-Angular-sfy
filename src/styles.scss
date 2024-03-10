@@ -8,10 +8,10 @@ $primary-color: #05828e;
       @media (max-width: 359px) { @content; }
     }
     @else if $breakpoint == small {
-      @media (min-width: 360px) and (max-width: 640px) { @content; }
+      @media (min-width: 360px) and (max-width: 767px)  { @content; }
     }
     @else if $breakpoint == medium {
-      @media (min-width: 768px) { @content; }
+      @media (min-width: 768px) and (max-width: 1023px) { @content; }
     }
     @else if $breakpoint == large {
       @media (min-width: 1024px) { @content; }

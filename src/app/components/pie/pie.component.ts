@@ -14,7 +14,7 @@ import { getDataConfig, getOptions } from './pie-chart.config';
 
 import { Router } from '@angular/router';
 import { ChartColorService } from 'src/app/core/services/chart-color.service';
-
+import { LabelButton } from 'src/app/utils/labelButton';
 
 @Component({
   selector: 'app-pie',
@@ -111,11 +111,14 @@ export class PieComponent implements OnInit, OnDestroy {
     const countriesRef = this.countries;
     const routerRef = this.router;
     const screenWidthRef = this.screenWidth;
+    const colorService = this.colorService;
+
+    const labelButtons: LabelButton[] = [];
 
     const chartConfig: ChartConfiguration = {
       type: 'pie' as ChartType, //this denotes tha type of chart
       data: getDataConfig(this.pieChartLabels, this.medalsCounts, this.pieSlicesBgColors),
-      options: getOptions(countriesRef, routerRef),
+      options: getOptions(countriesRef, routerRef, labelButtons, colorService, this.pieSlicesBgColors),
       plugins: [
         {
           id: 'pie-chart-lines',
@@ -133,29 +136,55 @@ export class PieComponent implements OnInit, OnDestroy {
                 const halfHeight = height / 2;
                 const halfWidth = width / 2;
 
-                const linePadding = screenWidthRef > 420 ? 92 : 55;
+                const linePadding = screenWidthRef > 600 ? 90 : 58;
 
                 const xLine = x >= halfWidth ? x + linePadding : x - linePadding;
 
-                const isFI = [0, 4].includes(index) ? true : false;
-                const isS = [1].includes(index) ? true : false;
+                const isFrIt = [0, 4].includes(index) ? true : false;
+                const isSp = [1].includes(index) ? true : false;
                 const fiMoveTo = y - 30;
                 const sMoveTo = y - 10;
             
                 
                 ctx.lineWidth = 2;
                 ctx.beginPath();
-                ctx.moveTo(x, isFI ? fiMoveTo : isS ? sMoveTo : y);
-                ctx.lineTo(xLine, isFI ? fiMoveTo : isS ? sMoveTo : y);
+                ctx.moveTo(x, isFrIt ? fiMoveTo : isSp ? sMoveTo : y);
+                ctx.lineTo(xLine, isFrIt ? fiMoveTo : isSp ? sMoveTo : y);
                 ctx.strokeStyle = (dataset.backgroundColor as string[])[index]
                 ctx.stroke();
 
-                // text
+          
+                // Country label
                 const labels = chart.data.labels as string[][];
                 const textLabel = labels[index][0];
                 const textMetrics = ctx.measureText(
                   chart.data.labels![index] as string
                 );
+
+
+                ctx.font = '14px Arial';
+
+                // control text position
+                const textPosition = x >= halfWidth ? 'left' : 'right';
+                const textMargin = x >= halfWidth ? 5 : -5;
+                  
+                const labelButton = new LabelButton(
+                  textLabel,
+                  'black',
+                  textPosition,
+                  textLabel,
+                  xLine,
+                  isFrIt ? fiMoveTo : isSp ? sMoveTo : y,
+                  textMargin,
+                  textMetrics.width,
+                  textMetrics.actualBoundingBoxAscent +
+                  textMetrics.actualBoundingBoxDescent
+                );
+
+                if (labelButtons.length < 5) {
+                  labelButtons.push(labelButton);
+                }
+                labelButton.draw(ctx);
               });
             });
           },

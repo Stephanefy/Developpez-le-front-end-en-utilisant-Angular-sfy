@@ -12,6 +12,7 @@ import { IOlympic } from 'src/app/core/models/Olympic';
 import { getDataConfig, getOptions } from './line-chart.config';
 import { Chart, ChartType, ChartConfiguration} from 'chart.js';
 import { ChartColorService } from 'src/app/core/services/chart-color.service';
+import { StorageService } from '../../../../.history/src/app/core/services/storage.service_20240305233251';
 
 @Component({
   selector: 'app-line',
@@ -38,12 +39,15 @@ export class LineComponent implements OnInit, AfterViewInit {
     private chartColorService: ChartColorService
   ) {}
   @Input() errorMessage!: string;
-  @Input() currentBgColor!: string;
 
   public olympic!: IOlympic;
 
   ngOnInit(): void {
-    this.chartColorService.color.subscribe((value) => this.color = value)
+
+    this.chartColorService.color.subscribe((value) => { 
+      this.color = value;
+    })
+
     const id = +this.route.snapshot.params['id'];
     this.olympicService.getOlympicById(id).subscribe((value) => {
       if (value) {

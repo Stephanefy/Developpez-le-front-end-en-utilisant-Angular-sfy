@@ -2,10 +2,11 @@
 
 .pie-chart-container {
     position: relative;
+    width: 100%;
 
     canvas {
-        width: 300px;
-        height: 300px;
+        width: 350px;
+        height: 350px;
 
         @include respond-to(small);
         @include respond-to(medium);

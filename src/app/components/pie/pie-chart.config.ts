@@ -1,9 +1,22 @@
 import { ChartEvent, ActiveElement } from 'chart.js';
 import { IOlympic } from 'src/app/core/models/Olympic';
 import { Router } from '@angular/router';
+import { LabelButton } from 'src/app/utils/labelButton';
+import { ChartColorService } from 'src/app/core/services/chart-color.service';
 
 export type PieChartLabels = string[][];
 export type MedalsCount = number[];
+
+//Helper function
+const getMousePositionRelativeToCanvas = (
+  canvas: HTMLCanvasElement,
+  event: ChartEvent
+) => {
+  let x = event.x ? event.x - (canvas.clientLeft + canvas.offsetLeft) : 0;
+  let y = event.y ? event.y - (canvas.clientTop + canvas.offsetTop) : 0;
+
+  return { x, y };
+};
 
 export const getDataConfig = (
   pieChartLabels: PieChartLabels,
@@ -26,11 +39,12 @@ export const getDataConfig = (
 
 export const getOptions = (
   countriesRef: IOlympic[],
-  routerRef: Router
+  routerRef: Router,
+  labelButtons: LabelButton[],
+  colorService: ChartColorService,
+  pieSlicesBgColors: string[]
 ) => {
 
-    const image = new Image(15 ,15)
-    image.src = 'https://www.svgrepo.com/show/522948/medal-ribbons-star.svg'
   {
     return {
       spacing: 0,
@@ -38,15 +52,52 @@ export const getOptions = (
         mode: 'nearest' as 'nearest',
       },
       responsive: true,
-      aspectRatio: 2,
+      aspectRatio: 2.5,
       layout: {
-        padding: 10,
+        padding: 1,
+      },
+      onClick: (event: ChartEvent, activeElement: ActiveElement[]) => {
+
+        const canvas = document.getElementById(
+          'pie-chart'
+        ) as HTMLCanvasElement;
+
+        if (canvas !== null) {
+          const { x, y } = getMousePositionRelativeToCanvas(canvas, event);
+
+          labelButtons.forEach((b) => {
+            if (b.inBounds(x, y)) {
+              const country = countriesRef.find(
+                (country) => country.country === b.text
+              );
+
+              colorService.updateData(pieSlicesBgColors[country!.id - 1]);
+
+              routerRef.navigate(['/details', country!.id]);
+            }
+          });
+        }
       },
       onHover: (event: ChartEvent, chartElement: ActiveElement[]) => {
-
         if (event.native && event.native.target instanceof HTMLElement) {
           event.native.target.style.cursor =
             chartElement.length === 1 ? 'pointer' : 'default';
+        }
+
+        const canvas = document.getElementById(
+          'pie-chart'
+        ) as HTMLCanvasElement;
+
+        if (canvas !== null) {
+          const { x, y } = getMousePositionRelativeToCanvas(canvas, event);
+
+          labelButtons.forEach((b) => {
+            if (b.inBounds(x, y)) {
+              if (event.native && event.native.target instanceof HTMLElement) {
+                event.native.target.style.cursor = 'pointer';
+              }
+            }
+          });
         }
       },
       plugins: {
@@ -60,16 +111,8 @@ export const getOptions = (
           backgroundColor: '#05828e',
           titleAlign: 'center' as const,
           usePointStyle: true,
-          // callbacks: {
-          //   labelPointStyle: function (context: Context) {
-          //     return {
-          //       pointStyle: image,
-          //     };
-          //   },
-          // },
         },
       },
     };
   }
 };
-

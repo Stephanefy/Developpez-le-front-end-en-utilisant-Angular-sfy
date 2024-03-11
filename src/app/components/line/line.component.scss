@@ -9,10 +9,10 @@
     .chart-wrapper {
         width: 80%;
    
-        @include respond-to(medium) {
+        @include respond-to(medium);
+        @include respond-to(large) {
             margin-top: 2rem;
-            width: 65%;
-    
+            width: 60%;
         }
     }
 }

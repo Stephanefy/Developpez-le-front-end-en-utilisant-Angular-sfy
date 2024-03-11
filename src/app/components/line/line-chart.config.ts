@@ -11,6 +11,10 @@ export const getOptions = () => {
       y: {
         suggestedMin: 0,
         suggestedMax: 100,
+        ticks: {
+          stepSize: 50
+        }
+
       },
     },
   };

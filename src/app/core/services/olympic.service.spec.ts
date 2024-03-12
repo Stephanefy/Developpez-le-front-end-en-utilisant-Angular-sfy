@@ -80,7 +80,7 @@ describe('OlympicService', () => {
     req.flush(mockOlympics);
   });
 
-  it('loadInitialData should handle error', () => {
+  it('loadInitialData should handle error with a specific error message', () => {
     service.loadInitialData().subscribe({
       next: () => {},
       error: (error) => {

@@ -11,9 +11,10 @@ import { DetailsComponent } from './pages/details/details.component';
 import { LineComponent } from './components/line/line.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { BarComponent } from './components/bar/bar.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NotFoundComponent, DashboardComponent, PieComponent, DetailsComponent, LineComponent, HeaderComponent, LoadingSpinnerComponent],
+  declarations: [AppComponent, HomeComponent, NotFoundComponent, DashboardComponent, PieComponent, DetailsComponent, LineComponent, HeaderComponent, LoadingSpinnerComponent, BarComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
